@@ -1,0 +1,10 @@
+<div class="dbcview-url">
+  <form [formGroup]="dbcViewForm" (ngSubmit)="onChangeUrl()">
+    <input name="url" formControlName="url" type="text" placeholder="Place Url to DBC File" />
+    <button type="submit">Load</button>
+  </form>
+</div>
+<div class="dbcview-content">
+  <div class="dbcview-nav"></div>
+  <div class="dbcview-preview"></div>
+</div>
