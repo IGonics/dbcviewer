@@ -10,27 +10,25 @@ import { DbcFile, DbcFileEntry } from '../entities/dbc-file';
 export class ZipExtractorService {
 
   constructor() { 
-    
-    zip.configure({
-      useWebWorkers: false,
-      
-    });
+
   }
 
-  extractFromUrl(url): Promise<DbcFile> {
-    const httpReader = new zip.HttpReader(url);
-    const reader = new zip.ZipReader(httpReader);
+  protected extractFromReader(myReader : zip.Reader, name:string)  : Promise<DbcFile> {
+     
+    const reader = new zip.ZipReader(myReader);
     var dbcFile = new DbcFile();
-    dbcFile.name = url;
-    dbcFile.size = httpReader.size;
-    return reader.getEntries().then((entries: zip.Entry[]) => {
-      const entriesData = entries.filter(entry => !entry.directory)
+    dbcFile.name = name;
+    dbcFile.size = myReader.size;
+    return reader.getEntries().then((allEntries: zip.Entry[]) => {
+      const entries = allEntries.filter(entry => !entry.directory || entry.filename[entry.filename.length-1] != '/' );
+      const entriesData = entries
         .map(entry => entry.getData(
           // writer
           new zip.TextWriter(),
           // options
           {
             onprogress: (index, max) => {
+              // console.log("getting data from "+entry.filename+" : "+(index/max * 100)+"%")
               // onprogress callback
             }
           }
@@ -38,7 +36,7 @@ export class ZipExtractorService {
       return Promise.all(entriesData).then((entriesDataAsText: string[]) => {
         for (var i = 0; i < entries.length; i++) {
           const entry = entries[i];
-          console.log("Debug Entry",entry)
+          // console.log("Debug Entry",entry)
           var dbcFileEntry = new DbcFileEntry();
           dbcFileEntry.base64encoded = btoa(entriesDataAsText[i]);
           dbcFileEntry.name = entry.filename;
@@ -53,5 +51,11 @@ export class ZipExtractorService {
 
 
     });
+  }
+
+  
+
+  extractFromBlob(blob : Blob): Promise<DbcFile> {
+     return this.extractFromReader(new zip.BlobReader(blob),null);
   }
 }
