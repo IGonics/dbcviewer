@@ -1,10 +1,29 @@
-<div class="dbcview-url">
-  <form [formGroup]="dbcViewForm" (ngSubmit)="onChangeUrl()">
-    <input name="url" formControlName="url" type="text" placeholder="Place Url to DBC File" />
-    <button type="submit">Load</button>
-  </form>
-</div>
+
 <div class="dbcview-content">
-  <div class="dbcview-nav"></div>
-  <div class="dbcview-preview"></div>
+  <div class="dbcview-nav">
+      <p>Start By Uploading a Databriks Files (.dbc)</p>
+      <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+        <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+      </div>
+      <div  class="files-list" *ngFor="let file of files;let i= index">
+          <p> {{ file }} </p>
+          <button class="delete-file" (click)="deleteAttachment(i)">
+            <img src="https://st2.depositphotos.com/5266903/8063/v/950/depositphotos_80631794-stock-illustration-trash-can-flat-red-color.jpg">
+          </button>
+       </div>
+
+
+       <hr />
+       <div *ngIf="lastDbcFile">
+         <ul>
+           <li *ngFor="let name of entries">
+             <span>{{name}} </span>
+             <button (click)="showNotebook(name)">View</button>
+           </li>
+         </ul>
+       </div>
+  </div>
+  <div *ngIf="lastDbcFile" class="dbcview-preview">
+    <iframe #iframe [src]="url | safe:'resourceUrl'" width="100%" height="600px"></iframe>
+  </div>
 </div>
