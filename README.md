@@ -13,9 +13,8 @@ Author: [gggordon](https://github.com/gggordon) / IGonics
 # Todo
 
 - [X] Allow Databricks Notebook Files to Be Previewed
-- [] Tests
-- [] Additional Documentation
-- [] Enhance UI
+- [ ] Test and Additional Documentation
+- [ ] Enhance UI
 
 
 # License
