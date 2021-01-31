@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import *  as zip from '@zip.js/zip.js';
+import { encode as base64encode } from 'js-base64';
 
 import { DbcFile, DbcFileEntry } from '../entities/dbc-file';
 
@@ -9,18 +10,18 @@ import { DbcFile, DbcFileEntry } from '../entities/dbc-file';
 })
 export class DbcExtractorService {
 
-  constructor() { 
+  constructor() {
 
   }
 
-  protected extractFromReader(myReader : zip.Reader, name:string)  : Promise<DbcFile> {
-     
+  protected extractFromReader(myReader: zip.Reader, name: string): Promise<DbcFile> {
+
     const reader = new zip.ZipReader(myReader);
     var dbcFile = new DbcFile();
     dbcFile.name = name;
     dbcFile.size = myReader.size;
     return reader.getEntries().then((allEntries: zip.Entry[]) => {
-      const entries = allEntries.filter(entry => !entry.directory || entry.filename[entry.filename.length-1] != '/' );
+      const entries = allEntries.filter(entry => !entry.directory || entry.filename[entry.filename.length - 1] != '/');
       const entriesData = entries
         .map(entry => entry.getData(
           // writer
@@ -38,7 +39,7 @@ export class DbcExtractorService {
           const entry = entries[i];
           // console.log("Debug Entry",entry)
           var dbcFileEntry = new DbcFileEntry();
-          dbcFileEntry.base64encoded = btoa(entriesDataAsText[i]);
+          dbcFileEntry.base64encoded = base64encode(entriesDataAsText[i]);
           dbcFileEntry.name = entry.filename;
           dbcFileEntry.path = entry.filename;
           dbcFile.entries[entry.filename] = dbcFileEntry;
@@ -53,9 +54,9 @@ export class DbcExtractorService {
     });
   }
 
-  
 
-  extractFromBlob(blob : Blob): Promise<DbcFile> {
-     return this.extractFromReader(new zip.BlobReader(blob),null);
+
+  extractFromBlob(blob: Blob): Promise<DbcFile> {
+    return this.extractFromReader(new zip.BlobReader(blob), null);
   }
 }

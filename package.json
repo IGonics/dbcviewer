@@ -21,6 +21,7 @@
     "@angular/router": "~7.2.0",
     "@zip.js/zip.js": "^2.2.4",
     "core-js": "^2.5.4",
+    "js-base64": "^3.6.0",
     "rxjs": "~6.3.3",
     "safe-pipe": "^1.0.3",
     "tslib": "^1.9.0",
