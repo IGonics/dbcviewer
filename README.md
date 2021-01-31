@@ -8,7 +8,7 @@ Author: [gggordon](https://github.com/gggordon) / IGonics
 
 # Demo
 
- [Click to view demo](http://bit.ly/igonics-dbcviewer)
+ [Click to view demo](https://igonics.github.io/dbcviewer/)
 
 # Todo
 
