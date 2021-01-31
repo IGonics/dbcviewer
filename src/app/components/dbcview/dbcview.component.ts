@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ZipExtractorService } from 'src/app/services/zip-extractor.service';
+import { DbcExtractorService } from 'src/app/services/dbc-extractor.service';
 import { DbcFileEntry, DbcFile } from 'src/app/entities/dbc-file';
 import { DbcPreviewService } from 'src/app/services/dbc-preview.service';
 
@@ -17,7 +17,7 @@ export class DbcviewComponent implements OnInit {
 
   constructor(
     private formBuilder : FormBuilder,
-    private zipExtractorService: ZipExtractorService,
+    private dbcExtractorService: DbcExtractorService,
     private previewService : DbcPreviewService
   ) { }
 
@@ -39,7 +39,7 @@ export class DbcviewComponent implements OnInit {
       console.log(element);
       try{
         console.log("Extracting")
-         this.zipExtractorService.extractFromBlob(element)
+         this.dbcExtractorService.extractFromBlob(element)
          .then(dbcFile=> {
            console.log(dbcFile)
            this.lastDbcFile = dbcFile;

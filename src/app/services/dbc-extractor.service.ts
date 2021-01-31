@@ -7,7 +7,7 @@ import { DbcFile, DbcFileEntry } from '../entities/dbc-file';
 @Injectable({
   providedIn: 'root'
 })
-export class ZipExtractorService {
+export class DbcExtractorService {
 
   constructor() { 
 

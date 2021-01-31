@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ZipExtractorService } from './zip-extractor.service';
+import { DbcExtractorService } from './dbc-extractor.service';
 
-describe('ZipExtractorService', () => {
+describe('DbcExtractorService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ZipExtractorService = TestBed.get(ZipExtractorService);
+    const service: DbcExtractorService = TestBed.get(DbcExtractorService);
     expect(service).toBeTruthy();
   });
 });
