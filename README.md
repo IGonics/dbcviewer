@@ -24,3 +24,4 @@ MIT
 # Maintained by
 
 [IGonics](https://igonics.com)
+![IGonics Logo](https://avatars.githubusercontent.com/u/19619552?s=200&v=4)
